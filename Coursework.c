@@ -113,10 +113,13 @@ void theGame() {
 	int j;
 	int invalid1 = 0;
 	int invalid2 = 0;
+	int in1 = 0;
+	int in2 = 0;
 	
 	do {	
 		do {
 			invalid1 = 0;
+			in1 = 0;
 			
 			// Get the players choice of move
 			printf("\n %s please pick a number:  ", player1);
@@ -148,15 +151,11 @@ void theGame() {
             
 			else if (num1 == 9 && arr[8] == '9')
 				arr[8] = 'X';
-            
+			
 			else {
 				printf("\n Invalid Move (X): %d\n\n", num1);
-			
 				invalid1 = 1;
-			
-				printf("\n %s (X)  -  %s (O)\n\n", player1, player2);
-		
-				board();
+				in1 = 1;
 			}
 			
 			// Save the players choice and whether they are X or O to the struct array
@@ -176,37 +175,19 @@ void theGame() {
 				break;
 			}
 
-			int undo1;
-			printf("\n\n Undo Move (1 = Yes)(Any Other Number To Continue): ");
-			scanf("%[^0-9]%d",str,&undo1);
+			if (in1 == 0) {
+				int undo1;
+				printf("\n Undo Move (1 = Yes)(Any Other Number To Continue): ");
+				scanf("%[^0-9]%d",str,&undo1);
 		
-			// Undos the players move
-			if(undo1 == 1) {
-				invalid1 = 1;
-				char c = arr_game[game].choice[theGo-1] + '0'; 
-				arr[arr_game[game].choice[theGo-1] - 1] = c;
-			
-				// Save the players choice and whether they are X or O to the struct array
-				arr_game[game].choice[theGo] = 10;
-				arr_game[game].XOrO[theGo] = 1;		
-			
-				theGo++;
-			
-				printf("\n %s (X)  -  %s (O)\n\n", player1, player2);
-		
-				board();
-			
-				int redo1;
-				printf("\n\n Redo Move (1 = Yes)(Any Other Number To Continue): ");
-				scanf("%[^0-9]%d",str,&redo1);
-		
-				// Redos the players move
-				if(redo1 == 1) {
-					invalid1 = 0;
-					arr[arr_game[game].choice[theGo-2] - 1] = 'X';
+				// Undos the players move
+				if(undo1 == 1) {
+					invalid1 = 1;
+					char c = arr_game[game].choice[theGo-1] + '0'; 
+					arr[arr_game[game].choice[theGo-1] - 1] = c;
 			
 					// Save the players choice and whether they are X or O to the struct array
-					arr_game[game].choice[theGo] = 11;
+					arr_game[game].choice[theGo] = 10;
 					arr_game[game].XOrO[theGo] = 1;		
 			
 					theGo++;
@@ -214,8 +195,28 @@ void theGame() {
 					printf("\n %s (X)  -  %s (O)\n\n", player1, player2);
 		
 					board();
+			
+					int redo1;
+					printf("\n Redo Move (1 = Yes)(Any Other Number To Continue): ");
+					scanf("%[^0-9]%d",str,&redo1);
+		
+					// Redos the players move
+					if(redo1 == 1) {
+						invalid1 = 0;
+						arr[arr_game[game].choice[theGo-2] - 1] = 'X';
+			
+						// Save the players choice and whether they are X or O to the struct array
+						arr_game[game].choice[theGo] = 11;
+						arr_game[game].XOrO[theGo] = 1;		
+			
+						theGo++;
+			
+						printf("\n %s (X)  -  %s (O)\n\n", player1, player2);
+		
+						board();
+					}
 				}
-			}	
+			}
 			
 		}while(invalid1 == 1);
 		
@@ -228,6 +229,7 @@ void theGame() {
 		
 		do {
 			invalid2 = 0;
+			in2 = 0;
 			
 			// Get the players choice of move
 			printf("\n %s please pick a number:  ", player2);	
@@ -262,12 +264,8 @@ void theGame() {
             
 			else {
 				printf("\n Invalid Move (O): %d\n\n", num2);	
-			
 				invalid2 = 1;
-			
-				printf("\n %s (X)  -  %s (O)\n\n", player1, player2);
-		
-				board();
+				in2 = 1;
 			}
 			
 			// Save the players choice and whether they are X or O to the struct array
@@ -287,44 +285,46 @@ void theGame() {
 				break;
 			}
 			
-			int undo2;
-			printf("\n Undo Move (1 = Yes)(Any Other Number To Continue): ");
-			scanf("%[^0-9]%d",str,&undo2);
+			if (in2 == 0) {
+				int undo2;
+				printf("\n Undo Move (1 = Yes)(Any Other Number To Continue): ");
+				scanf("%[^0-9]%d",str,&undo2);
 		
-			// Undos the players move
-			if(undo2 == 1) {
-				invalid2 = 1;
-				char c = arr_game[game].choice[theGo-1] + '0';
-				arr[arr_game[game].choice[theGo-1] - 1] = c; 			
-			
-				// Save the players choice and whether they are X or O to the struct array
-				arr_game[game].choice[theGo] = 10;
-				arr_game[game].XOrO[theGo] = 2;		
-			
-				theGo++;
-			
-				printf("\n\n %s (X)  -  %s (O)\n\n", player1, player2);
-		
-				board();
-			
-				int redo2;
-				printf("\n\n Redo Move (1 = Yes)(Any Other Number To Continue): ");
-				scanf("%[^0-9]%d",str,&redo2);
-		
-				// Redos the players move
-				if(redo2 == 1) {	
-					invalid2 = 0; 
-					arr[arr_game[game].choice[theGo-2] - 1] = 'O';
+				// Undos the players move
+				if(undo2 == 1) {
+					invalid2 = 1;
+					char c = arr_game[game].choice[theGo-1] + '0';
+					arr[arr_game[game].choice[theGo-1] - 1] = c; 			
 			
 					// Save the players choice and whether they are X or O to the struct array
-					arr_game[game].choice[theGo] = 11;
-					arr_game[game].XOrO[theGo] = 1;		
+					arr_game[game].choice[theGo] = 10;
+					arr_game[game].XOrO[theGo] = 2;		
 			
 					theGo++;
 			
-					printf("\n %s (X)  -  %s (O)\n\n", player1, player2);
+					printf("\n\n %s (X)  -  %s (O)\n\n", player1, player2);
 		
 					board();
+			
+					int redo2;
+					printf("\n Redo Move (1 = Yes)(Any Other Number To Continue): ");
+					scanf("%[^0-9]%d",str,&redo2);
+		
+					// Redos the players move
+					if(redo2 == 1) {	
+						invalid2 = 0; 
+						arr[arr_game[game].choice[theGo-2] - 1] = 'O';
+			
+						// Save the players choice and whether they are X or O to the struct array
+						arr_game[game].choice[theGo] = 11;
+						arr_game[game].XOrO[theGo] = 2;		
+			
+						theGo++;
+			
+						printf("\n %s (X)  -  %s (O)\n\n", player1, player2);
+		
+						board();
+					}
 				}
 			}
 					
@@ -390,98 +390,98 @@ void replay(int chosenGame) {
 	// Gets the players names and the number of goes from the chosen game
 	strcpy(p1, arr_game[chosenGame].p1);
 	strcpy(p2, arr_game[chosenGame].p2);
-	int size = arr_game[chosenGame].goes;
+	int numGoes = arr_game[chosenGame].goes;
 	
 	// Replays the chosen game
-	for(int q = 1; q < size; q++) {
+	for(int go = 1; go < numGoes; go++) {
 		
 		printf("\n %s (X)  -  %s (O)\n\n", p1, p2);
 		
 		// Gets the players choice of move
-		int f = arr_game[chosenGame].choice[q];
+		int move = arr_game[chosenGame].choice[go];
 		
 		// Displays the 'X' player moves
-		if(arr_game[chosenGame].XOrO[q] == 1) {			
-			if (f == 1 && arr[0] == '1') {
+		if(arr_game[chosenGame].XOrO[go] == 1) {			
+			if (move == 1 && arr[0] == '1') {
 				arr[0] = 'X';
 				board();
-			} else if (f == 2 && arr[1] == '2') {
+			} else if (move == 2 && arr[1] == '2') {
 				arr[1] = 'X';
 				board();	
-			} else if (f == 3 && arr[2] == '3') {
+			} else if (move == 3 && arr[2] == '3') {
 				arr[2] = 'X'; 
 				board();
-			} else if (f == 4 && arr[3] == '4') {
+			} else if (move == 4 && arr[3] == '4') {
 				arr[3] = 'X'; 
 				board();	
-			} else if (f == 5 && arr[4] == '5') {
+			} else if (move == 5 && arr[4] == '5') {
 				arr[4] = 'X';  
 				board();				
-			} else if (f == 6 && arr[5] == '6') {
+			} else if (move == 6 && arr[5] == '6') {
 				arr[5] = 'X';
 				board();				
-			} else if (f == 7 && arr[6] == '7') {
+			} else if (move == 7 && arr[6] == '7') {
 				arr[6] = 'X'; 
 				board();				
-			} else if (f == 8 && arr[7] == '8') {
+			} else if (move == 8 && arr[7] == '8') {
 				arr[7] = 'X'; 
 				board();				
-			} else if (f == 9 && arr[8] == '9') {
+			} else if (move == 9 && arr[8] == '9') {
 				arr[8] = 'X'; 
 				board();				
-			} else if (f == 10) {
+			} else if (move == 10) {
 				printf(" Previous Move Undid\n\n");
-				char c = arr_game[chosenGame].choice[q-1] + '0';
-				arr[arr_game[chosenGame].choice[q-1] - 1] = c; 
+				char c = arr_game[chosenGame].choice[go-1] + '0';
+				arr[arr_game[chosenGame].choice[go-1] - 1] = c; 
 				board();				
-			} else if (f == 11) {
+			} else if (move == 11) {
 				printf(" Previous Move Redid\n\n");
-				arr[arr_game[chosenGame].choice[q-2] - 1] = 'X'; 
+				arr[arr_game[chosenGame].choice[go-2] - 1] = 'X'; 
 				board();				
 			} else {
-				printf(" Invalid Move (X): %d\n", f);	
+				printf(" Invalid Move (X): %d\n", move);	
 			}	
 		// Displays the 'O' players moves	
-		} else if(arr_game[chosenGame].XOrO[q] == 2) {
+		} else if(arr_game[chosenGame].XOrO[go] == 2) {
 			
-			if (f == 1 && arr[0] == '1') {
+			if (move == 1 && arr[0] == '1') {
 				arr[0] = 'O';
 				board();
-			} else if (f == 2 && arr[1] == '2') {
+			} else if (move == 2 && arr[1] == '2') {
 				arr[1] = 'O';
 				board();	
-			} else if (f == 3 && arr[2] == '3') {
+			} else if (move == 3 && arr[2] == '3') {
 				arr[2] = 'O'; 
 				board();
-			} else if (f == 4 && arr[3] == '4') {
+			} else if (move == 4 && arr[3] == '4') {
 				arr[3] = 'O'; 
 				board();	
-			} else if (f == 5 && arr[4] == '5') {
+			} else if (move == 5 && arr[4] == '5') {
 				arr[4] = 'O';  
 				board();				
-			} else if (f == 6 && arr[5] == '6') {
+			} else if (move == 6 && arr[5] == '6') {
 				arr[5] = 'O';
 				board();				
-			} else if (f == 7 && arr[6] == '7') {
+			} else if (move == 7 && arr[6] == '7') {
 				arr[6] = 'O'; 
 				board();				
-			} else if (f == 8 && arr[7] == '8') {
+			} else if (move == 8 && arr[7] == '8') {
 				arr[7] = 'O'; 
 				board();				
-			} else if (f == 9 && arr[8] == '9') {
+			} else if (move == 9 && arr[8] == '9') {
 				arr[8] = 'O'; 
 				board();				
-			} else if (f == 10) {
+			} else if (move == 10) {
 				printf(" Previous Move Undid\n\n");
-				char d = arr_game[chosenGame].choice[q-1] + '0';
-				arr[arr_game[chosenGame].choice[q-1] - 1] = d;
+				char ch = arr_game[chosenGame].choice[go-1] + '0';
+				arr[arr_game[chosenGame].choice[go-1] - 1] = ch;
 				board();
-			} else if (f == 11) {
+			} else if (move == 11) {
 				printf(" Previous Move Redid\n\n");
-				arr[arr_game[chosenGame].choice[q-2] - 1] = 'O'; 
+				arr[arr_game[chosenGame].choice[go-2] - 1] = 'O'; 
 				board();				
 			} else {
-				printf(" Invalid Move (O): %d\n", f);	
+				printf(" Invalid Move (O): %d\n", move);	
 			}		
 		}	
 		
@@ -552,7 +552,6 @@ int check() {
 		// Game is not finshed yet
         return  - 1;
 }
-
 
 
 
