@@ -159,7 +159,7 @@ void theGame() {
 			}
 			
 			// Save the players choice and whether they are X or O to the struct array
-		    arr_game[game].choice[theGo] = num1;
+		    	arr_game[game].choice[theGo] = num1;
 			arr_game[game].XOrO[theGo] = 1;	
 			
 			theGo++;	
@@ -269,7 +269,7 @@ void theGame() {
 			}
 			
 			// Save the players choice and whether they are X or O to the struct array
-		    arr_game[game].choice[theGo] = num2;
+		    	arr_game[game].choice[theGo] = num2;
 			arr_game[game].XOrO[theGo] = 2;
 			
 			theGo++;
@@ -335,7 +335,7 @@ void theGame() {
 	char winner[20];
 	
 	// Checks which player has won or if the game was a draw
-    if (i == 1) {
+    	if (i == 1) {
 		printf(" Player %s wins!!!\n", player1);
 		strcpy(winner, player1);
 	}
@@ -343,8 +343,8 @@ void theGame() {
 		printf(" Player %s wins!!!\n", player2);
 		strcpy(winner, player1);
 	}
-    else {
-        printf(" The Game is a draw...\n");	
+    	else {
+        	printf(" The Game is a draw...\n");	
 		strcpy(winner, "Draw");
 	}
 	
@@ -546,10 +546,10 @@ int check() {
         arr[3] != '4' && arr[4] != '5' && arr[5] != '6' && arr[6] 
         != '7' && arr[7] != '8' && arr[8] != '9')
 
-		// Game is a draw
+	// Game is a draw
         return 0;
     else
-		// Game is not finshed yet
+	// Game is not finshed yet
         return  - 1;
 }
 
