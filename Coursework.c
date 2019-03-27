@@ -28,7 +28,7 @@ void replay();
 // Array of game struct - for saving details of games 
 struct game arr_game[MAX];
 
-int main() {
+int main() { 
 	
 	char again[10];
 	int loop = 1;
